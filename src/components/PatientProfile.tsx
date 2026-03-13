@@ -14,9 +14,13 @@ function getTrendColor(trend: string) {
   return 'text-slate-900';
 }
 
+function renderText(content: string, normalClass = 'text-slate-900', unclearClass = 'text-slate-400') {
+  return <span className={isUnclearContent(content) ? unclearClass : normalClass}>{content}</span>;
+}
+
 function renderContentPill(content: string, tone: 'neutral' | 'amber') {
   if (isUnclearContent(content)) {
-    return <span className="text-slate-500">{content}</span>;
+    return <span className="text-slate-400">{content}</span>;
   }
 
   if (tone === 'amber') {
@@ -37,8 +41,8 @@ function renderContentPill(content: string, tone: 'neutral' | 'amber') {
 export function PatientProfile({ profile }: { profile: Patient['patientProfile'] }) {
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 items-start">
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+      <div className="flex flex-col xl:flex-row xl:items-start gap-6">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 xl:w-[43%] xl:flex-none">
           <h3 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
             <User className="w-5 h-5 text-indigo-500" />
             基础信息
@@ -57,7 +61,9 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
                   <tr key={idx} className="border-b border-slate-100 last:border-0 align-top">
                     <td className="px-4 py-3 font-medium text-slate-700">{item.item}</td>
                     <td className="px-4 py-3">{renderContentPill(item.content, 'neutral')}</td>
-                    <td className="px-4 py-3 text-xs leading-5 text-slate-500">{item.value}</td>
+                    <td className="px-4 py-3 text-xs leading-5">
+                      {renderText(item.value, 'text-slate-500', 'text-slate-400')}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -65,7 +71,7 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 xl:flex-1">
           <h3 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
             <Activity className="w-5 h-5 text-amber-500" />
             疾病信息
@@ -84,14 +90,8 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
                   <tr key={idx} className="border-b border-slate-100 last:border-0 align-top">
                     <td className="px-4 py-3 font-medium text-slate-700">{item.item}</td>
                     <td className="px-4 py-3">{renderContentPill(item.content, 'amber')}</td>
-                    <td
-                      className={
-                        isUnclearContent(item.content)
-                          ? 'px-4 py-3 text-xs leading-5 text-slate-400'
-                          : 'px-4 py-3 text-xs leading-5 text-slate-500'
-                      }
-                    >
-                      {item.value}
+                    <td className="px-4 py-3 text-xs leading-5">
+                      {renderText(item.value, 'text-slate-500', 'text-slate-400')}
                     </td>
                   </tr>
                 ))}
@@ -116,10 +116,10 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
                     <li key={idx} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                       <div className="flex justify-between mb-1 gap-3">
                         <span className="font-medium text-slate-900">{item.name}</span>
-                        <span className="text-slate-500">{item.date}</span>
+                        {renderText(item.date, 'text-slate-500', 'text-slate-400')}
                       </div>
-                      <div className="text-slate-600 mb-1">医院: {item.hospital}</div>
-                      <div className="text-xs text-indigo-600">{item.value}</div>
+                      <div className="mb-1">{renderText(`医院: ${item.hospital}`, 'text-slate-600', 'text-slate-400')}</div>
+                      <div className="text-xs">{renderText(item.value, 'text-indigo-600', 'text-slate-400')}</div>
                     </li>
                   ))}
                 </ul>
@@ -135,18 +135,24 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
                       <li key={idx} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                         <div className="flex justify-between mb-1 gap-3">
                           <span className="font-medium text-slate-900">{item.drug}</span>
-                          <span
-                            className={`px-2 py-0.5 rounded-full text-xs ${
-                              item.status.includes('停') || item.status.includes('鍋')
-                                ? 'bg-slate-200 text-slate-700'
-                                : 'bg-green-100 text-green-700'
-                            }`}
-                          >
-                            {item.status}
-                          </span>
+                          {isUnclearContent(item.status) ? (
+                            <span className="px-2 py-0.5 rounded-full text-xs bg-slate-100 text-slate-400">
+                              {item.status}
+                            </span>
+                          ) : (
+                            <span
+                              className={`px-2 py-0.5 rounded-full text-xs ${
+                                item.status.includes('停') || item.status.includes('鍋')
+                                  ? 'bg-slate-200 text-slate-700'
+                                  : 'bg-green-100 text-green-700'
+                              }`}
+                            >
+                              {item.status}
+                            </span>
+                          )}
                         </div>
-                        <div className="text-slate-500 mb-1">时间: {item.time}</div>
-                        <div className="text-xs text-indigo-600">{item.value}</div>
+                        <div className="mb-1">{renderText(`时间: ${item.time}`, 'text-slate-500', 'text-slate-400')}</div>
+                        <div className="text-xs">{renderText(item.value, 'text-indigo-600', 'text-slate-400')}</div>
                       </li>
                     ))}
                   </ul>
@@ -161,18 +167,24 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
                     <li key={idx} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                       <div className="flex justify-between mb-1 gap-3">
                         <span className="font-medium text-slate-900">{item.regimen}</span>
-                        <span
-                          className={`px-2 py-0.5 rounded-full text-xs ${
-                            item.status.includes('停') || item.status.includes('鍋')
-                              ? 'bg-slate-200 text-slate-700'
-                              : 'bg-green-100 text-green-700'
-                          }`}
-                        >
-                          {item.status}
-                        </span>
+                        {isUnclearContent(item.status) ? (
+                          <span className="px-2 py-0.5 rounded-full text-xs bg-slate-100 text-slate-400">
+                            {item.status}
+                          </span>
+                        ) : (
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-xs ${
+                              item.status.includes('停') || item.status.includes('鍋')
+                                ? 'bg-slate-200 text-slate-700'
+                                : 'bg-green-100 text-green-700'
+                            }`}
+                          >
+                            {item.status}
+                          </span>
+                        )}
                       </div>
-                      <div className="text-slate-500 mb-1">时间: {item.time}</div>
-                      <div className="text-xs text-indigo-600">{item.value}</div>
+                      <div className="mb-1">{renderText(`时间: ${item.time}`, 'text-slate-500', 'text-slate-400')}</div>
+                      <div className="text-xs">{renderText(item.value, 'text-indigo-600', 'text-slate-400')}</div>
                     </li>
                   ))}
                 </ul>
@@ -187,18 +199,24 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
                     <li key={idx} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
                       <div className="flex justify-between mb-1 gap-3">
                         <span className="font-medium text-slate-900">{item.drug}</span>
-                        <span
-                          className={`px-2 py-0.5 rounded-full text-xs ${
-                            item.status.includes('停') || item.status.includes('鍋')
-                              ? 'bg-slate-200 text-slate-700'
-                              : 'bg-green-100 text-green-700'
-                          }`}
-                        >
-                          {item.status}
-                        </span>
+                        {isUnclearContent(item.status) ? (
+                          <span className="px-2 py-0.5 rounded-full text-xs bg-slate-100 text-slate-400">
+                            {item.status}
+                          </span>
+                        ) : (
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-xs ${
+                              item.status.includes('停') || item.status.includes('鍋')
+                                ? 'bg-slate-200 text-slate-700'
+                                : 'bg-green-100 text-green-700'
+                            }`}
+                          >
+                            {item.status}
+                          </span>
+                        )}
                       </div>
-                      <div className="text-slate-500 mb-1">时间: {item.time}</div>
-                      <div className="text-xs text-indigo-600">{item.value}</div>
+                      <div className="mb-1">{renderText(`时间: ${item.time}`, 'text-slate-500', 'text-slate-400')}</div>
+                      <div className="text-xs">{renderText(item.value, 'text-indigo-600', 'text-slate-400')}</div>
                     </li>
                   ))}
                 </ul>
@@ -209,7 +227,7 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
               !profile.treatmentHistory.targetedEndocrine?.length &&
               !profile.treatmentHistory.chemotherapy?.length &&
               !profile.treatmentHistory.medication?.length && (
-                <div className="text-sm text-slate-500 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                <div className="text-sm text-slate-400 p-3 bg-slate-50 rounded-lg border border-slate-100">
                   暂无诊疗历史记录
                 </div>
               )}
@@ -235,10 +253,12 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
                   <tr key={idx} className="border-b border-slate-100 last:border-0">
                     <td className="px-4 py-2 font-medium text-slate-900">
                       {item.drug}
-                      <span className="block text-xs text-slate-500 font-normal">{item.indication}</span>
+                      <span className="block text-xs font-normal">
+                        {renderText(item.indication, 'text-slate-500', 'text-slate-400')}
+                      </span>
                     </td>
-                    <td className="px-4 py-2 text-slate-600">{item.usage}</td>
-                    <td className="px-4 py-2 text-slate-500 text-xs">{item.value}</td>
+                    <td className="px-4 py-2">{renderText(item.usage, 'text-slate-600', 'text-slate-400')}</td>
+                    <td className="px-4 py-2 text-xs">{renderText(item.value, 'text-slate-500', 'text-slate-400')}</td>
                   </tr>
                 ))}
               </tbody>
@@ -266,8 +286,8 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
                 {profile.followUpArchive.map((item, idx) => (
                   <tr key={idx} className="border-b border-slate-100 last:border-0">
                     <td className="px-4 py-2 font-medium text-slate-700">{item.item}</td>
-                    <td className="px-4 py-2 text-slate-900">{item.content}</td>
-                    <td className="px-4 py-2 text-slate-500 text-xs">{item.value}</td>
+                    <td className="px-4 py-2">{renderText(item.content, 'text-slate-900', 'text-slate-400')}</td>
+                    <td className="px-4 py-2 text-xs">{renderText(item.value, 'text-slate-500', 'text-slate-400')}</td>
                   </tr>
                 ))}
               </tbody>
@@ -296,12 +316,18 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
                   <tr key={idx} className="border-b border-slate-100 last:border-0">
                     <td className="px-4 py-2 font-medium text-slate-900">
                       {item.indicator}
-                      <span className="block text-xs text-indigo-500 font-normal mt-1">{item.value}</span>
+                      <span className="block text-xs font-normal mt-1">
+                        {renderText(item.value, 'text-indigo-500', 'text-slate-400')}
+                      </span>
                     </td>
-                    <td className={`px-4 py-2 font-bold ${getTrendColor(item.trend)}`}>{item.current}</td>
-                    <td className="px-4 py-2 text-slate-500">{item.previous}</td>
-                    <td className="px-4 py-2 text-slate-500 text-xs">{item.reference}</td>
-                    <td className={`px-4 py-2 font-bold ${getTrendColor(item.trend)}`}>{item.trend}</td>
+                    <td className={`px-4 py-2 font-bold ${isUnclearContent(item.current) ? 'text-slate-400' : getTrendColor(item.trend)}`}>
+                      {item.current}
+                    </td>
+                    <td className="px-4 py-2">{renderText(item.previous, 'text-slate-500', 'text-slate-400')}</td>
+                    <td className="px-4 py-2 text-xs">{renderText(item.reference, 'text-slate-500', 'text-slate-400')}</td>
+                    <td className={`px-4 py-2 font-bold ${isUnclearContent(item.trend) ? 'text-slate-400' : getTrendColor(item.trend)}`}>
+                      {item.trend}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -325,7 +351,13 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
             <div className="flex flex-wrap gap-2">
               {profile.patientTags.map((tag, idx) => (
                 <div key={idx} className="group relative">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-100 cursor-help">
+                  <span
+                    className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border cursor-help ${
+                      isUnclearContent(tag.content)
+                        ? 'bg-slate-50 text-slate-400 border-slate-200'
+                        : 'bg-indigo-50 text-indigo-700 border-indigo-100'
+                    }`}
+                  >
                     {tag.type}: {tag.content}
                   </span>
                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-48 p-2 bg-slate-800 text-white text-xs rounded shadow-lg z-10">
@@ -342,9 +374,9 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
               {profile.emotionAssessment.map((item, idx) => (
                 <li key={idx} className="flex flex-col p-2 bg-slate-50 rounded-lg">
                   <span className="font-medium text-slate-800">
-                    {item.dimension}: <span className="text-pink-600">{item.result}</span>
+                    {item.dimension}: {renderText(item.result, 'text-pink-600', 'text-slate-400')}
                   </span>
-                  <span className="text-slate-500 text-xs mt-1">依据: {item.basis}</span>
+                  <span className="text-xs mt-1">{renderText(`依据: ${item.basis}`, 'text-slate-500', 'text-slate-400')}</span>
                 </li>
               ))}
             </ul>
@@ -356,9 +388,9 @@ export function PatientProfile({ profile }: { profile: Patient['patientProfile']
               {profile.satisfaction.map((item, idx) => (
                 <li key={idx} className="flex flex-col p-2 bg-slate-50 rounded-lg">
                   <span className="font-medium text-slate-800">
-                    {item.dimension}: <span className="text-emerald-600">{item.result}</span>
+                    {item.dimension}: {renderText(item.result, 'text-emerald-600', 'text-slate-400')}
                   </span>
-                  <span className="text-slate-500 text-xs mt-1">说明: {item.explanation}</span>
+                  <span className="text-xs mt-1">{renderText(`说明: ${item.explanation}`, 'text-slate-500', 'text-slate-400')}</span>
                 </li>
               ))}
             </ul>
