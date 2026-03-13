@@ -45,6 +45,8 @@ fi
 
 # Set correct permissions
 log_info "Setting file permissions..."
+# Ensure home directory is accessible by nginx
+chmod o+x /home/admin
 find "$DIST_PATH" -type d -exec chmod 755 {} \;
 find "$DIST_PATH" -type f -exec chmod 644 {} \;
 
