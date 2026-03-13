@@ -31,11 +31,7 @@ function renderContentPill(content: string, tone: 'neutral' | 'amber') {
     );
   }
 
-  return (
-    <span className="inline-flex rounded-md bg-slate-900 px-2.5 py-1 text-[13px] font-semibold leading-5 text-white">
-      {content}
-    </span>
-  );
+  return <span className="text-[13px] font-semibold leading-5 text-blue-600">{content}</span>;
 }
 
 export function PatientProfile({ profile }: { profile: Patient['patientProfile'] }) {
