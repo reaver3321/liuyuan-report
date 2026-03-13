@@ -8,7 +8,6 @@ set -e
 DEPLOY_PATH="/home/admin/liuyuan-report"
 DIST_PATH="${DEPLOY_PATH}/dist"
 BACKUP_PATH="${DEPLOY_PATH}/dist.backup"
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
 # Colors for output
 RED='\033[0;31m'
@@ -28,20 +27,13 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Backup current dist if it exists
-if [ -d "$DIST_PATH" ]; then
-    log_info "Backing up current dist directory..."
-    mv "$DIST_PATH" "${BACKUP_PATH}_${TIMESTAMP}"
-    log_info "Backup created: ${BACKUP_PATH}_${TIMESTAMP}"
-else
-    log_info "No existing dist directory to backup"
-fi
-
-# Files are already uploaded by rsync, just verify
+# Verify dist directory exists (uploaded by rsync)
 if [ ! -d "$DIST_PATH" ]; then
     log_error "Dist directory not found after upload!"
     exit 1
 fi
+
+log_info "Dist directory found, setting permissions..."
 
 # Set correct permissions
 log_info "Setting file permissions..."
