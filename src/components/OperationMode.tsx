@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import operationOverviewImage from '../assets/operation-overview.png';
 import { 
   Network, 
   Stethoscope, 
@@ -115,6 +116,23 @@ export function OperationMode() {
           该模式利用前沿的人工智能算力，彻底打破了当前的“管理真空”与“数据断层”，构建了一个从服务触发、智能执行到数据反哺的飞轮闭环。
         </p>
       </div>
+
+      <section className="space-y-6">
+        <div className="flex items-center gap-4 border-b-2 border-slate-100 pb-6">
+          <div className="w-12 h-12 rounded-2xl bg-sky-600 text-white flex items-center justify-center shadow-md shadow-sky-200">
+            <Network className="w-6 h-6" />
+          </div>
+          <h2 className="text-3xl font-bold text-slate-900">整体示意图</h2>
+        </div>
+
+        <div className="bg-white rounded-[2rem] border border-slate-200 shadow-sm p-4 md:p-6">
+          <img
+            src={operationOverviewImage}
+            alt="云健康医疗数字化运营整体逻辑示意图"
+            className="w-full rounded-2xl border border-slate-100"
+          />
+        </div>
+      </section>
 
       {/* Part 1: 闭环管理 */}
       <section className="space-y-12">
