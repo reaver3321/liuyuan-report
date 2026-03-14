@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import hospitalValueOverviewImage from '../assets/hospital-value-overview.png';
 import { Database, TrendingUp, HeartHandshake, Zap, BookOpen, Stethoscope, Users, Building2, Target, Award, LineChart, ArrowRight, CheckCircle2, Brain, FlaskConical, ClipboardCheck } from 'lucide-react';
 import { cn } from '../utils/cn';
 
@@ -16,6 +17,26 @@ export function HospitalValue() {
           基于门诊录音及患者服务采集的数据，构建医院核心数据资产，并通过智能化管理方案实现运营提效与经济转化。
         </p>
       </div>
+
+      <section className="space-y-6">
+        <div className="flex items-center gap-4 border-b-2 border-slate-100 pb-6">
+          <div className="w-12 h-12 rounded-2xl bg-sky-600 text-white flex items-center justify-center shadow-md shadow-sky-200">
+            <Building2 className="w-6 h-6" />
+          </div>
+          <h2 className="text-3xl font-bold text-slate-900">
+            整体示意图
+            <span className="ml-3 text-base font-medium text-slate-300">CC</span>
+          </h2>
+        </div>
+
+        <div className="bg-white rounded-[2rem] border border-slate-200 shadow-sm p-4 md:p-6">
+          <img
+            src={hospitalValueOverviewImage}
+            alt="医院价值分析整体示意图"
+            className="w-full rounded-2xl border border-slate-100"
+          />
+        </div>
+      </section>
 
       {/* Part 1: 数据资产价值 */}
       <section className="space-y-10">

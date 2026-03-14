@@ -38,7 +38,7 @@ export default function App() {
         <div className="p-6 border-b border-slate-100">
           <div className="space-y-4">
             <div className="min-w-0">
-              <div className="text-sm font-bold text-slate-900">上药云健康</div>
+              <div className="text-xl font-extrabold text-slate-900 tracking-tight">上药云健康</div>
               <h1 className="mt-1 text-[15px] leading-5 font-semibold bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">
                 智能化患者服务与科研平台解决方案
               </h1>
