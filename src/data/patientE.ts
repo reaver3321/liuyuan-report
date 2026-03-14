@@ -19,7 +19,7 @@ export const patientE: Patient = {
     structuredInquiry: {
       basicInfo: [
         { field: "患者姓名", content: "患者E", source: "\"李俊\"" },
-        { field: "疾病诊断", content: "尤文肉瘤", source: "\"尤文肉瘤\"" },
+        { field: "疾病诊断", content: "尤文肉瘤腹壁复发术后", source: "\"尤文肉瘤\"、\"腹壁复发术后\"" },
         { field: "治疗方案", content: "手术切除, 术后无瘤状态, 暂停靶向药", source: "\"无瘤状态\"、\"靶向药没有再吃\"" },
         { field: "当前治疗周数", content: "术后恢复期", source: "-" },
         { field: "过敏史", content: "未提及", source: "-" }
@@ -67,7 +67,7 @@ export const patientE: Patient = {
     medicalOrders: {
       medications: [
         { name: "百令胶囊", indication: "保肝肾", usage: "一次3粒, 一日三次", duration: "长期", note: "坚持服用" },
-        { name: "还原性谷胱甘肽", indication: "保肝肾", usage: "一次4粒, 一日三次", duration: "待定", note: "与百令胶囊同服" }
+        { name: "还原型谷胱甘肽", indication: "保肝肾", usage: "一次4粒, 一日三次", duration: "待定", note: "与百令胶囊同服" }
       ],
       examinations: [
         { item: "肝功能", time: "2-4周后", purpose: "评估保肝药效果" },
@@ -120,7 +120,7 @@ export const patientE: Patient = {
       { item: "年龄", content: "未明确", value: "数据沉淀：年龄分层分析、疾病谱研究" },
       { item: "联系电话", content: "有", value: "运营提效：自动化触达基础" },
       { item: "医保类型", content: "未明确", value: "经济转化：费用预估、支付能力评估" },
-      { item: "居住地", content: "未明确", value: "数据沉淀：地域分布分析；医患关系：异地患者关怀重点" },
+      { item: "居住地", content: "甘肃", value: "数据沉淀：地域分布分析；医患关系：异地患者关怀重点" },
       { item: "职业", content: "送快递", value: "数据沉淀：职业与健康关联研究" }
     ],
     diseaseInfo: [

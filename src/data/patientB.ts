@@ -13,7 +13,7 @@ export const patientB: Patient = {
     ],
     diseaseAssessment: {
       conclusion: "右尺桡骨骨肿瘤（化疗后随访状态）",
-      currentStatus: "治疗结束近两年，日常活动无明显受限，整体恢复良好",
+      currentStatus: "治疗结束近1年，日常活动无明显受限，整体恢复良好",
       riskLevel: "中危（存在心脏毒性监测需求及合并症管理需求）"
     },
     structuredInquiry: {
@@ -71,7 +71,7 @@ export const patientB: Patient = {
     },
     healthAdvice: {
       lifestyle: [
-        "避免重体力劳动，但日常活动（如游泳）不受限制",
+        "避免重体力劳动，但日常活动（除游泳）不受限制",
         "保持规律作息，注意休息",
         "控制血压血糖，定期监测相关指标"
       ],
@@ -91,7 +91,7 @@ export const patientB: Patient = {
       { issue: "PICC管路管理", priority: "中", advice: "满2年后评估取出时机", estimatedTime: "2027年1月" },
       { issue: "血压血糖管理", priority: "中", advice: "持续监测，必要时调整用药", estimatedTime: "每次随访" }
     ],
-    followUpConclusion: "患者为右尺桡骨骨肿瘤化疗后状态，治疗结束近两年，整体恢复良好，日常活动无明显受限。主要关注点包括：1）心脏毒性监测——既往使用蒽环类药物后出现偶发心脏不适症状；2）合并症管理——存在高血压和血糖偏高问题；3）PICC管路维护——目前结疗不到两年，建议满两年后评估取出时机。治疗依从性好，预后良好。",
+    followUpConclusion: "患者为右尺桡骨骨肿瘤化疗后状态，治疗结束近1年，整体恢复良好，日常活动无明显受限。主要关注点包括：1）心脏毒性监测——既往使用蒽环类药物后出现偶发心脏不适症状；2）合并症管理——存在高血压和血糖偏高问题；3）PICC管路维护——目前结疗不到两年，建议满两年后评估取出时机。治疗依从性好，预后良好。",
     dotPrediction: [
       { item: "随访间隔调整", result: "不变", basis: "病情稳定，按每月一次随访即可" },
       { item: "下次随访重点", result: "心脏功能、血压血糖控制、PICC管路评估", basis: "基于当前关注点制定" },

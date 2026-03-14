@@ -9,6 +9,7 @@ export interface Patient {
     structuredInquiry: {
       basicInfo: { field: string; content: string; source: string }[];
       medicationInfo: { field: string; content: string; source: string }[];
+      medicationInfoTabs?: { drug: string; items: { field: string; content: string; source: string }[] }[];
       labTests: { field: string; content: string; source: string }[];
     };
     adverseEventsOverview: { name: string; grade: string; relation: string; action: string; impact: string }[];

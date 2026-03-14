@@ -25,11 +25,33 @@ export const patientA: Patient = {
         { field: "过敏史", content: "未提及", source: "-" }
       ],
       medicationInfo: [
-        { field: "是否首次服药", content: "否", source: "治疗已超过2年" },
-        { field: "给药途径", content: "口服", source: "\"口服\"" },
-        { field: "有无剂量调整", content: "有", source: "考虑延长用药间隔" },
-        { field: "剂量调整类型", content: "降低用药频率", source: "2-3个月一次" },
-        { field: "用药依从性", content: "良好", source: "\"定时服用\"" }
+        { field: "当前重点药品", content: "恩扎卢胺、地舒单抗", source: "\"恩扎卢胺\"、\"地舒单抗\"" },
+        { field: "药品数量", content: "2个药品需分别跟踪", source: "口服内分泌治疗 + 骨保护治疗" },
+        { field: "采集方式", content: "按药品切换查看", source: "不同药品给药途径和调整策略不同" },
+        { field: "恩扎卢胺结论", content: "无剂量调整，依从性良好", source: "\"没有剂量调整\"、\"每天4粒12点准时吃\"" },
+        { field: "地舒单抗结论", content: "因口腔溃疡及拔牙存在给药调整", source: "\"医生建议间隔1个月用一次\"" }
+      ],
+      medicationInfoTabs: [
+        {
+          drug: "恩扎卢胺",
+          items: [
+            { field: "是否首次服药", content: "否", source: "\"治疗已超过2年\"" },
+            { field: "给药途径", content: "口服", source: "\"每天4粒12点准时吃\"" },
+            { field: "有无剂量调整", content: "无", source: "\"恩扎卢胺没有剂量调整\"" },
+            { field: "剂量/频次说明", content: "每天4粒，每日12点准时服用", source: "\"每天4粒12点准时吃\"" },
+            { field: "用药依从性", content: "良好", source: "\"12点准时吃\"" }
+          ]
+        },
+        {
+          drug: "地舒单抗",
+          items: [
+            { field: "是否首次服药", content: "否", source: "当前为持续治疗中的骨转移用药" },
+            { field: "给药途径", content: "注射给药", source: "\"地舒单抗（治疗肿瘤骨转移）\"" },
+            { field: "有无剂量调整", content: "有", source: "\"因为口腔溃疡及拔牙...有剂量调整\"" },
+            { field: "剂量调整类型", content: "因口腔溃疡及拔牙，给药延期/调整为间隔1个月用一次", source: "\"医生建议间隔1个月用一次\"" },
+            { field: "调整原因", content: "口腔溃疡、拔牙，需降低颌骨相关并发症风险", source: "\"因为口腔溃疡及拔牙\"" }
+          ]
+        }
       ],
       labTests: [
         { field: "血常规结果", content: "未提及", source: "-" },
@@ -56,6 +78,7 @@ export const patientA: Patient = {
     medicalOrders: {
       medications: [
         { name: "恩扎卢胺", indication: "前列腺癌", usage: "口服，定时", duration: "长期", note: "不可随意停药" },
+        { name: "地舒单抗", indication: "骨转移", usage: "输注", duration: "长期", note: "间隔一个月用药一次" },
         { name: "钙片", indication: "骨质疏松预防", usage: "口服", duration: "长期", note: "配合维生素D" },
         { name: "维生素", indication: "补充营养", usage: "口服", duration: "长期", note: "-" }
       ],
@@ -114,7 +137,7 @@ export const patientA: Patient = {
       { item: "主诊断", content: "前列腺癌", value: "数据沉淀：疾病分类统计、临床研究队列" },
       { item: "分期/分级", content: "未明确", value: "数据沉淀：病情严重度分析、预后研究" },
       { item: "确诊日期", content: "2023年10月前", value: "数据沉淀：生存期计算、病程分析" },
-      { item: "转移情况", content: "未明确", value: "数据沉淀：转移模式研究；经济转化：复杂病例治疗需求" },
+      { item: "转移情况", content: "骨转移", value: "数据沉淀：转移模式研究；经济转化：复杂病例治疗需求" },
       { item: "合并症", content: "骨质疏松", value: "数据沉淀：共病研究；运营提效：多学科协作识别" }
     ],
     treatmentHistory: {

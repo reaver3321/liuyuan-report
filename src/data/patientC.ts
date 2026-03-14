@@ -68,7 +68,7 @@ export const patientC: Patient = {
     ],
     medicalOrders: {
       medications: [
-        { name: "依西美坦", indication: "乳腺癌内分泌治疗", usage: "口服，每日8点", duration: "10年", note: "饭后服用，可能出现头晕" },
+        { name: "依西美坦", indication: "乳腺癌内分泌治疗", usage: "口服，每日8点", duration: "NA", note: "饭后服用，可能出现头晕" },
         { name: "奈拉替尼", indication: "乳腺癌靶向加强治疗", usage: "口服", duration: "1年（剩余3天）", note: "注意腹泻反应，必要时用易蒙停" },
         { name: "易蒙停", indication: "腹泻对症治疗", usage: "腹泻>4次/日时服用", duration: "按需", note: "避免使用蒙脱石散" }
       ],
@@ -133,7 +133,7 @@ export const patientC: Patient = {
     ],
     treatmentHistory: {
       targetedEndocrine: [
-        { drug: "依西美坦（10年疗程中）", time: "当前", status: "进行中", value: "数据沉淀：内分泌治疗研究；经济转化：后续治疗需求预测" },
+        { drug: "依西美坦", time: "当前", status: "进行中", value: "数据沉淀：内分泌治疗研究；经济转化：后续治疗需求预测" },
         { drug: "奈拉替尼（1年加强）", time: "当前", status: "即将完成（剩余3天）", value: "数据沉淀：靶向治疗研究" }
       ]
     },

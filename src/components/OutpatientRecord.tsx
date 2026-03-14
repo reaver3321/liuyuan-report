@@ -3,6 +3,19 @@ import { Patient } from '../types';
 import { FileText, Stethoscope, AlertTriangle, Pill, Activity, Calendar, HeartPulse, ClipboardList } from 'lucide-react';
 
 export function OutpatientRecord({ record }: { record: Patient['outpatientRecord'] }) {
+  const medicationTabs = record.structuredInquiry.medicationInfoTabs ?? [];
+  const [activeMedicationTab, setActiveMedicationTab] = React.useState(
+    medicationTabs[0]?.drug ?? ''
+  );
+
+  React.useEffect(() => {
+    setActiveMedicationTab(medicationTabs[0]?.drug ?? '');
+  }, [record, medicationTabs]);
+
+  const activeMedicationItems =
+    medicationTabs.find((tab) => tab.drug === activeMedicationTab)?.items ??
+    record.structuredInquiry.medicationInfo;
+
   return (
     <div className="space-y-6">
       {/* 就诊要点总结 */}
@@ -89,6 +102,24 @@ export function OutpatientRecord({ record }: { record: Patient['outpatientRecord
 
           <div className="rounded-2xl border border-emerald-100 bg-white/90 p-4 shadow-sm">
             <h4 className="text-sm font-semibold text-emerald-800 mb-3">用药情况采集</h4>
+            {medicationTabs.length > 0 && (
+              <div className="mb-4 flex flex-wrap gap-2">
+                {medicationTabs.map((tab) => (
+                  <button
+                    key={tab.drug}
+                    type="button"
+                    onClick={() => setActiveMedicationTab(tab.drug)}
+                    className={`rounded-xl border px-4 py-2 text-sm font-semibold transition-all ${
+                      activeMedicationTab === tab.drug
+                        ? 'border-emerald-200 bg-emerald-100 text-emerald-800 shadow-sm'
+                        : 'border-slate-200 bg-white text-slate-600 hover:border-emerald-100 hover:text-emerald-700'
+                    }`}
+                  >
+                    {tab.drug}
+                  </button>
+                ))}
+              </div>
+            )}
             <div className="overflow-x-auto">
               <table className="w-full table-fixed text-sm text-left border border-emerald-100 rounded-xl overflow-hidden">
                 <colgroup>
@@ -104,7 +135,7 @@ export function OutpatientRecord({ record }: { record: Patient['outpatientRecord
                   </tr>
                 </thead>
                 <tbody>
-                  {record.structuredInquiry.medicationInfo.map((item, idx) => (
+                  {activeMedicationItems.map((item, idx) => (
                     <tr key={idx} className="border-b border-slate-100 last:border-0">
                       <td className="px-4 py-3 align-top font-medium text-slate-700">{item.field}</td>
                       <td className="px-4 py-3 align-top">
