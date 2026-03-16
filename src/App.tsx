@@ -109,9 +109,6 @@ export default function App() {
           <div>
             <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 px-2">
               患者列表
-              <span className="block normal-case tracking-normal text-[11px] font-medium text-slate-500 mt-1">
-                3月11日，5名门诊患者试点
-              </span>
             </div>
             <div className="space-y-2">
               {patients.map((patient) => (
